@@ -11,8 +11,7 @@ struct CityRow: View {
     let city: City
     let isFavorite: Bool
     let toggleFavorite: () -> Void
-    
-    @State private var isNavigationActive = false
+    @Binding var selectedCity: City?
     
     var body: some View {
         HStack {
@@ -30,14 +29,14 @@ struct CityRow: View {
                 Image(systemName: isFavorite ? "star.fill" : "star")
                     .foregroundColor(isFavorite ? .yellow : .gray)
             }
-            .frame(width: 44, height: 44)
+            .frame(width: 25, height: 25)
             .contentShape(Rectangle())
-            
-            
-            NavigationLink("", destination: CityDetailView(city: city))
+            .buttonStyle(PlainButtonStyle())
+            .onTapGesture {
+                selectedCity = city
+            }
+
         }
         .padding()
-        .contentShape(Rectangle()) // Asegura que el HStack no intercepte toques
-        .buttonStyle(PlainButtonStyle())
     }
 }

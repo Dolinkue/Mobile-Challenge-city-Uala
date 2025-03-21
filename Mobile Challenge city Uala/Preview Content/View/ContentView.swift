@@ -8,17 +8,31 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var selectedCity: City? // Ciudad seleccionada
+    
     var body: some View {
         GeometryReader { geometry in
             if geometry.size.width > geometry.size.height {
-                // Landscape layout logic
+                // LANDSCAPE
                 HStack {
-                    CitiesListView().frame(width: geometry.size.width / 2)
-                    Color.blue // This could be a MapView or other component
+                    CitiesListView(selectedCity: $selectedCity)
+                        .frame(width: geometry.size.width / 2)
+                    
+                    if let city = selectedCity {
+                        ScrollView {
+                            CityDetailView(city: city)
+                                .frame(width: geometry.size.width / 2)
+                        }
+                    } else {
+                        Text("Selecciona una ciudad")
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .font(.title)
+                            .foregroundColor(.gray)
+                    }
                 }
             } else {
-                // Portrait layout logic
-                CitiesListView()
+                // PORTRAIT
+                CitiesListView(selectedCity: $selectedCity)
             }
         }
     }

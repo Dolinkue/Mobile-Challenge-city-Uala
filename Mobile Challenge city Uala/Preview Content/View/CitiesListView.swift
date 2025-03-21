@@ -10,9 +10,11 @@ import MapKit
 
 struct CitiesListView: View {
     @ObservedObject var viewModel: CitiesViewModel
-
-    init(viewModel: CitiesViewModel = CitiesViewModel()) {
+    @Binding var selectedCity: City?
+    
+    init(viewModel: CitiesViewModel = CitiesViewModel(), selectedCity: Binding<City?>) {
         self.viewModel = viewModel
+        self._selectedCity = selectedCity
     }
     
     var body: some View {
@@ -21,7 +23,7 @@ struct CitiesListView: View {
                 TextField("Filter cities", text: $viewModel.filterText)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding(.horizontal)
-                    
+                
                 Toggle("Only favorites", isOn: $showOnlyFavorites)
                     .padding(.horizontal)
                     .onChange(of: showOnlyFavorites) { _ in
@@ -31,7 +33,7 @@ struct CitiesListView: View {
                             viewModel.resetDisplayedCities()
                         }
                     }
-
+                
                 // Option to change search strategy
                 Picker("Search by", selection: $searchChoice) {
                     Text("Name").tag(0)
@@ -46,16 +48,32 @@ struct CitiesListView: View {
                     }
                 }
                 
-                List(viewModel.displayedCities, id: \.id) { city in
-                        CityRow(
-                            city: city,
-                            isFavorite: self.viewModel.isFavorite(city.id),
-                            toggleFavorite: {
-                                self.viewModel.toggleFavorite(for: city.id)
+                GeometryReader { geometry in
+                    if geometry.size.width > geometry.size.height {
+                        // LANDSCAPE
+                        List(viewModel.displayedCities, id: \.id) { city in
+                            CityRow(city: city, isFavorite: viewModel.isFavorite(city.id), toggleFavorite: {
+                                viewModel.toggleFavorite(for: city.id)
+                            }, selectedCity: $selectedCity)
+                            .onTapGesture {
+                                selectedCity = city
                             }
-                        )
-                    .onAppear {
-                        viewModel.loadMoreCitiesIfNeeded(currentItem: city)
+                            .onAppear {
+                                viewModel.loadMoreCitiesIfNeeded(currentItem: city)
+                            }
+                        }
+                    } else {
+                        // PORTRAIT
+                        List(viewModel.displayedCities, id: \.id) { city in
+                            NavigationLink(destination: CityDetailView(city: city)) {
+                                CityRow(city: city, isFavorite: viewModel.isFavorite(city.id), toggleFavorite: {
+                                    viewModel.toggleFavorite(for: city.id)
+                                }, selectedCity: $selectedCity)
+                                .onAppear {
+                                    viewModel.loadMoreCitiesIfNeeded(currentItem: city)
+                                }
+                            }
+                        }
                     }
                 }
             }
