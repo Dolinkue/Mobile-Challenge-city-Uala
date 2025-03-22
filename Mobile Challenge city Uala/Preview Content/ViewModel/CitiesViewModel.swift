@@ -14,6 +14,7 @@ class CitiesViewModel: ObservableObject {
     @Published var displayedCities: [City] = []
     @Published var favorites: Set<Int> = []
     @Published var filterText: String = ""
+    @Published var isLoading: Bool = true
     
     private var searchStrategy: SearchStrategy
     private let loadIncrement = 20
@@ -43,6 +44,7 @@ class CitiesViewModel: ObservableObject {
     }
     
     func fetchCities() {
+        isLoading = true
         cityService.fetchCities()
             .sink(receiveCompletion: { completion in
                 switch completion {
@@ -63,6 +65,7 @@ class CitiesViewModel: ObservableObject {
                     return first < second
                 }
                 self?.resetDisplayedCities()
+                self?.isLoading = false
             })
             .store(in: &cancellables)
     }
