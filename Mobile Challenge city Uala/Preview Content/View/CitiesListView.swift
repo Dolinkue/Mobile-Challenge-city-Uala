@@ -11,6 +11,8 @@ import MapKit
 struct CitiesListView: View {
     @ObservedObject var viewModel: CitiesViewModel
     @Binding var selectedCity: City?
+    @State private var searchChoice = 0
+    @State private var showOnlyFavorites: Bool = false
     
     init(viewModel: CitiesViewModel = CitiesViewModel(), selectedCity: Binding<City?>) {
         self.viewModel = viewModel
@@ -26,27 +28,27 @@ struct CitiesListView: View {
                 
                 Toggle("Only favorites", isOn: $showOnlyFavorites)
                     .padding(.horizontal)
-                    .onChange(of: showOnlyFavorites) { _ in
+                    .onChange(of: showOnlyFavorites, initial: false, { _, _ in
                         if showOnlyFavorites {
                             viewModel.displayedCities = viewModel.filteredCities.filter { viewModel.isFavorite($0.id) }
                         } else {
                             viewModel.resetDisplayedCities()
                         }
-                    }
-                
+                    })
+
                 // Option to change search strategy
                 Picker("Search by", selection: $searchChoice) {
                     Text("Name").tag(0)
                     Text("Country").tag(1)
                 }
                 .pickerStyle(SegmentedPickerStyle())
-                .onChange(of: searchChoice) { choice in
+                .onChange(of: searchChoice, initial: false, { choice, _ in
                     if choice == 0 {
                         viewModel.setSearchStrategy(NameSearchStrategy())
                     } else {
                         // new strategy
                     }
-                }
+                })
                 
                 GeometryReader { geometry in
                     if geometry.size.width > geometry.size.height {
@@ -77,12 +79,8 @@ struct CitiesListView: View {
                     }
                 }
             }
-            .navigationTitle("Cities")
         }
     }
-    
-    @State private var searchChoice = 0
-    @State private var showOnlyFavorites: Bool = false
 }
 
 

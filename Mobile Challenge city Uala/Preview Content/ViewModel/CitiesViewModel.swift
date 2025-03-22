@@ -20,6 +20,7 @@ class CitiesViewModel: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     private let cityService: CityFetching
     private let favoritesManager: FavoritesManaging
+    private var countInit = 0
     
     init(cityService: CityFetching = CityService.shared,
          favoritesManager: FavoritesManaging = FavoritesManager(),
@@ -84,7 +85,7 @@ class CitiesViewModel: ObservableObject {
             return
         }
         
-        let thresholdIndex = displayedCities.index(displayedCities.endIndex, offsetBy: -5)
+        let thresholdIndex = displayedCities.index(displayedCities.endIndex, offsetBy: -8)
         if displayedCities.firstIndex(where: { $0.id == city.id }) == thresholdIndex {
             self.displayedCities.append(contentsOf: filteredCities[displayedCities.count..<min(displayedCities.count + loadIncrement, filteredCities.count)])
         }

@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var selectedCity: City? // Ciudad seleccionada
+    @StateObject private var viewModel = CitiesViewModel()
+    @State private var selectedCity: City? // City Selected
     
     var body: some View {
         GeometryReader { geometry in
             if geometry.size.width > geometry.size.height {
                 // LANDSCAPE
                 HStack {
-                    CitiesListView(selectedCity: $selectedCity)
+                    CitiesListView(viewModel: viewModel, selectedCity: $selectedCity)
                         .frame(width: geometry.size.width / 2)
                     
                     if let city = selectedCity {
@@ -32,7 +33,7 @@ struct ContentView: View {
                 }
             } else {
                 // PORTRAIT
-                CitiesListView(selectedCity: $selectedCity)
+                CitiesListView(viewModel: viewModel, selectedCity: $selectedCity)
             }
         }
     }
