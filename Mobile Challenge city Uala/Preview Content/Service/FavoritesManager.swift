@@ -8,7 +8,7 @@
 import Foundation
 
 class FavoritesManager: FavoritesManaging {
-    private let favoritesKey = "favorites"
+    private let favoritesKey = Constants.favoritesKey
     
     func loadFavorites() -> Set<Int> {
         if let data = UserDefaults.standard.data(forKey: favoritesKey),

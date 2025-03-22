@@ -26,7 +26,7 @@ struct CityRow: View {
             Spacer()
             
             Button(action: toggleFavorite) {
-                Image(systemName: isFavorite ? "star.fill" : "star")
+                Image(systemName: isFavorite ? Constants.isFavorite : Constants.noFavorite)
                     .foregroundColor(isFavorite ? .yellow : .gray)
             }
             .frame(width: 25, height: 25)

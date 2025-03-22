@@ -16,7 +16,7 @@ struct CityDetailView: View {
             MapView(coordinate: CLLocationCoordinate2D(latitude: city.coord.lat, longitude: city.coord.lon))
                 .frame(height: 300)
             
-            Text("City Info")
+            Text(Constants.cityDetailTitle)
                 .font(.largeTitle)
             
             Text("Country: \(city.country)")

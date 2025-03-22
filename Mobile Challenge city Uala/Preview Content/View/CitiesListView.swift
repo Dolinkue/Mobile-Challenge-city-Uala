@@ -22,11 +22,11 @@ struct CitiesListView: View {
     var body: some View {
         NavigationView {
             VStack {
-                TextField("Filter cities", text: $viewModel.filterText)
+                TextField(Constants.textFieldFilter, text: $viewModel.filterText)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding(.horizontal)
                 
-                Toggle("Only favorites", isOn: $showOnlyFavorites)
+                Toggle(Constants.toggleTitle, isOn: $showOnlyFavorites)
                     .padding(.horizontal)
                     .onChange(of: showOnlyFavorites, initial: false, { _, _ in
                         if showOnlyFavorites {
@@ -37,7 +37,7 @@ struct CitiesListView: View {
                     })
 
                 // Option to change search strategy
-                Picker("Search by", selection: $searchChoice) {
+                Picker(Constants.searchByTitle, selection: $searchChoice) {
                     Text("Name").tag(0)
                     Text("Country").tag(1)
                 }

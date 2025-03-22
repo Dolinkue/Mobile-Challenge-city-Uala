@@ -25,7 +25,7 @@ struct ContentView: View {
                                 .frame(width: geometry.size.width / 2)
                         }
                     } else {
-                        Text("Selecciona una ciudad")
+                        Text(Constants.emptyViewTitle)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                             .font(.title)
                             .foregroundColor(.gray)
