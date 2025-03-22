@@ -51,8 +51,16 @@ class CitiesViewModel: ObservableObject {
                     break
                 }
             }, receiveValue: { [weak self] cities in
-                self?.cities = cities
-                self?.filteredCities = cities
+                self?.cities = cities.sorted {
+                    let first = "\($0.name), \($0.country)"
+                    let second = "\($1.name), \($1.country)"
+                    return first < second
+                }
+                self?.filteredCities = cities.sorted {
+                    let first = "\($0.name), \($0.country)"
+                    let second = "\($1.name), \($1.country)"
+                    return first < second
+                }
                 self?.resetDisplayedCities()
             })
             .store(in: &cancellables)
