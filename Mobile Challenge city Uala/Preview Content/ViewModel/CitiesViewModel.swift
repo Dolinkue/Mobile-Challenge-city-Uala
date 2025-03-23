@@ -54,25 +54,21 @@ class CitiesViewModel: ObservableObject {
                     break
                 }
             }, receiveValue: { [weak self] cities in
-                self?.cities = cities.sorted {
-                    let first = "\($0.name), \($0.country)"
-                    let second = "\($1.name), \($1.country)"
-                    return first < second
-                }
-                self?.filteredCities = cities.sorted {
-                    let first = "\($0.name), \($0.country)"
-                    let second = "\($1.name), \($1.country)"
-                    return first < second
-                }
-                self?.resetDisplayedCities()
-                self?.isLoading = false
+                guard let self = self else { return }
+                self.cities = self.sortedCities(cities)
+                self.filteredCities = self.cities
+                self.resetDisplayedCities()
+                self.isLoading = false
             })
             .store(in: &cancellables)
     }
     
     func performSearch(query: String) {
         filteredCities = searchStrategy.search(cities: cities, query: query)
-        filteredCities.sort {
+    }
+    
+    private func sortedCities(_ cities: [City]) -> [City] {
+        cities.sorted {
             let first = "\($0.name), \($0.country)"
             let second = "\($1.name), \($1.country)"
             return first < second
