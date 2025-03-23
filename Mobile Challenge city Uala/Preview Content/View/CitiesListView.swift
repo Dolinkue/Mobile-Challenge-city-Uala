@@ -51,33 +51,19 @@ struct CitiesListView: View {
                 })
                 
                 if viewModel.isLoading {
-                    SkeletonListView() 
+                    SkeletonListView()
                 } else {
                     GeometryReader { geometry in
-                        if geometry.size.width > geometry.size.height {
-                            // LANDSCAPE
-                            List(viewModel.displayedCities, id: \.id) { city in
-                                CityRow(city: city, isFavorite: viewModel.isFavorite(city.id), toggleFavorite: {
-                                    viewModel.toggleFavorite(for: city.id)
-                                }, selectedCity: $selectedCity)
-                                .onTapGesture {
-                                    selectedCity = city
-                                }
-                                .onAppear {
-                                    viewModel.loadMoreCitiesIfNeeded(currentItem: city)
-                                }
-                            }
-                        } else {
-                            // PORTRAIT
-                            List(viewModel.displayedCities, id: \.id) { city in
-                                NavigationLink(destination: CityDetailView(city: city)) {
-                                    CityRow(city: city, isFavorite: viewModel.isFavorite(city.id), toggleFavorite: {
-                                        viewModel.toggleFavorite(for: city.id)
-                                    }, selectedCity: $selectedCity)
-                                    .onAppear {
-                                        viewModel.loadMoreCitiesIfNeeded(currentItem: city)
-                                    }
-                                }
+                        List(viewModel.displayedCities, id: \.id) { city in
+                            CityRow(
+                                city: city,
+                                isFavorite: viewModel.isFavorite(city.id),
+                                toggleFavorite: { viewModel.toggleFavorite(for: city.id) },
+                                isLandscape: geometry.size.width > geometry.size.height,
+                                selectedCity: $selectedCity
+                            )
+                            .onAppear {
+                                viewModel.loadMoreCitiesIfNeeded(currentItem: city)
                             }
                         }
                     }

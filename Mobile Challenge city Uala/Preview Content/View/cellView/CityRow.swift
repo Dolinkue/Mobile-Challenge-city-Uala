@@ -11,9 +11,24 @@ struct CityRow: View {
     let city: City
     let isFavorite: Bool
     let toggleFavorite: () -> Void
+    let isLandscape: Bool
     @Binding var selectedCity: City?
     
     var body: some View {
+        if isLandscape {
+            CityRowContent()
+                .onTapGesture {
+                    selectedCity = city
+                }
+        } else {
+            NavigationLink(destination: CityDetailView(city: city)) {
+                CityRowContent()
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private func CityRowContent() -> some View {
         HStack {
             VStack(alignment: .leading) {
                 Text("\(city.name), \(city.country)")
@@ -32,11 +47,8 @@ struct CityRow: View {
             .frame(width: 25, height: 25)
             .contentShape(Rectangle())
             .buttonStyle(PlainButtonStyle())
-            .onTapGesture {
-                selectedCity = city
-            }
-
         }
         .padding()
     }
 }
+
