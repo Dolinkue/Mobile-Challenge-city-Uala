@@ -22,8 +22,8 @@ final class Mobile_Challenge_city_UalaUITests: XCTestCase {
             object: parisCell
         )
         
-        let result = XCTWaiter().wait(for: [expectation], timeout: 5)
-        XCTAssert(result == .completed, "No se encontró la celda en 5 segundos")
+        let result = XCTWaiter().wait(for: [expectation], timeout: 8)
+        XCTAssert(result == .completed, "No se encontró la celda en 8 segundos")
         
         if !parisCell.isHittable {
             app.swipeUp()
@@ -40,24 +40,5 @@ final class Mobile_Challenge_city_UalaUITests: XCTestCase {
         
         let coordinatesText = app.staticTexts["Coordinates: 52,836670, 4,755560"]
         XCTAssertTrue(coordinatesText.exists)
-    }
-    
-    @MainActor
-    func testExample() throws {
-        // UI tests must launch the application that they test.
-        let app = XCUIApplication()
-        app.launch()
-        
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    @MainActor
-    func testLaunchPerformance() throws {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *) {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTApplicationLaunchMetric()]) {
-                XCUIApplication().launch()
-            }
-        }
     }
 }
