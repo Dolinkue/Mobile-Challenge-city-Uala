@@ -7,6 +7,7 @@ CityFinder es una aplicación desarrollada en **SwiftUI** siguiendo la arquitect
 - **SwiftUI**: Para la construcción de la interfaz de usuario declarativa y reactiva.
 - **MVVM (Model-View-ViewModel)**: Para una separación clara de responsabilidades y facilitar la escalabilidad y testabilidad.
 - **SOLID**: Se aplicaron principios de diseño SOLID para mejorar la estructura y mantenimiento del código.
+- **Singleton**: Uso del patrón Singleton para la gestión de la capa de red y la obtención de datos desde la API. 
 - **Estrategia de Búsqueda con Binary Search**: Para optimizar la búsqueda de ciudades en grandes conjuntos de datos.
 - **Patrón Strategy**: Para hacer la lógica de búsqueda más flexible y escalable.
 - **Unit Tests & UI Tests**: Se integraron pruebas unitarias y de interfaz para garantizar el correcto funcionamiento de la aplicación.
@@ -38,6 +39,12 @@ class NameSearchStrategy: SearchStrategy {
 }
 ```
 Esto permite agregar nuevas estrategias de búsqueda en el futuro, como búsqueda por país o por coordenadas, sin modificar la lógica existente.
+
+---
+
+## 🛠 Singleton para la gestión de la API
+
+Se implementó un Singleton en la clase CityService para manejar la llamada a la API y obtener la lista de ciudades. Esto garantiza que solo haya una instancia del servicio y facilita su reutilización en diferentes partes de la aplicación.
 
 ---
 
