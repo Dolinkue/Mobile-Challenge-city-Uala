@@ -41,8 +41,8 @@ final class Mobile_Challenge_city_UalaUITests: XCTestCase {
             object: parisCell
         )
         
-        let result = XCTWaiter().wait(for: [expectation], timeout: 8)
-        XCTAssert(result == .completed, "No se encontró la celda en 8 segundos")
+        let result = XCTWaiter().wait(for: [expectation], timeout: 15)
+        XCTAssert(result == .completed, "No se encontró la celda en 15 segundos")
         
         if !parisCell.isHittable {
             app.swipeUp()

@@ -35,20 +35,6 @@ struct CitiesListView: View {
                             viewModel.resetDisplayedCities()
                         }
                     })
-
-                // Option to change search strategy
-                Picker(Constants.searchByTitle, selection: $searchChoice) {
-                    Text("Name").tag(0)
-                    Text("Country").tag(1)
-                }
-                .pickerStyle(SegmentedPickerStyle())
-                .onChange(of: searchChoice, initial: false, { choice, _ in
-                    if choice == 0 {
-                        viewModel.setSearchStrategy(NameSearchStrategy())
-                    } else {
-                        // new strategy
-                    }
-                })
                 
                 if viewModel.isLoading {
                     SkeletonListView()

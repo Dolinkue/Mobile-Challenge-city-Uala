@@ -1,6 +1,6 @@
-# CityFinder
+# Mobile Challenge City Uala
 
-CityFinder es una aplicación desarrollada en **SwiftUI** siguiendo la arquitectura **MVVM** para ofrecer una experiencia fluida al buscar y explorar ciudades. La aplicación permite visualizar una lista de ciudades, buscar de manera eficiente y acceder a detalles con información geolocalizada en un mapa interactivo.
+Es una aplicación desarrollada en **SwiftUI** siguiendo la arquitectura **MVVM** para ofrecer una experiencia fluida al buscar y explorar ciudades. La aplicación permite visualizar una lista de ciudades, buscar de manera eficiente y acceder a detalles con información geolocalizada en un mapa interactivo.
 
 ## 📌 Tecnologías y Arquitectura
 
@@ -94,6 +94,6 @@ Cmd + U  # Ejecutar pruebas en Xcode
 
 ## 📌 Conclusión
 
-CityFinder es una aplicación diseñada con un enfoque modular y escalable, aprovechando **SwiftUI, MVVM, Binary Search, Strategy Pattern y SOLID** para ofrecer una arquitectura robusta. La integración de pruebas asegura su confiabilidad y mantenimiento a largo plazo.
+Mobile Challenge City Uala es una aplicación diseñada con un enfoque modular y escalable, aprovechando **SwiftUI, MVVM, Binary Search, Strategy Pattern y SOLID** para ofrecer una arquitectura robusta. La integración de pruebas asegura su confiabilidad y mantenimiento a largo plazo.
 
 
