@@ -16,39 +16,30 @@ final class Mobile_Challenge_city_UalaUITests: XCTestCase {
     override func setUpWithError() throws {
         continueAfterFailure = false
     }
-
-    @MainActor
-    func testLaunch() throws {
-        let app = XCUIApplication()
-        app.launch()
-
-        let attachment = XCTAttachment(screenshot: app.screenshot())
-        attachment.name = "Launch Screen"
-        attachment.lifetime = .keepAlways
-        add(attachment)
-    }
     
     @MainActor
     func testCityDetailView_DisplaysCityInfo() {
         let app = XCUIApplication()
+        app.launchArguments.append("--UITest-OrientedOnly")
         app.launch()
         
+        
         let cityName = "t Zand"
-        let parisCell = app.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", cityName)).firstMatch
+        let cityCell = app.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", cityName)).firstMatch
         
         let expectation = XCTNSPredicateExpectation(
             predicate: NSPredicate(format: "exists == true && hittable == true"),
-            object: parisCell
+            object: cityCell
         )
         
         let result = XCTWaiter().wait(for: [expectation], timeout: 15)
         XCTAssert(result == .completed, "No se encontró la celda en 15 segundos")
         
-        if !parisCell.isHittable {
+        if !cityCell.isHittable {
             app.swipeUp()
         }
 
-        parisCell.tap()
+        cityCell.tap()
         
         // Validar la vista de detalle
         let title = app.staticTexts["City Info"]
