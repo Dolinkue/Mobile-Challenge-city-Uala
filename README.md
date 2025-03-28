@@ -32,7 +32,7 @@ protocol SearchStrategy {
     func search(cities: [City], query: String) -> [City]
 }
 
-class NameSearchStrategy: SearchStrategy {
+class CityNameSearchStrategy: SearchStrategy {
     func search(cities: [City], query: String) -> [City] {
         // Implementación con Binary Search
     }
@@ -68,7 +68,7 @@ Se agregaron pruebas para garantizar la funcionalidad y estabilidad de la aplica
 Ejemplo de prueba unitaria:
 ```swift
 func testBinarySearch_ReturnsCorrectResults() {
-    let strategy = NameSearchStrategy()
+    let strategy = CityNameSearchStrategy()
     let result = strategy.search(cities: mockCities, query: "Paris")
     XCTAssertEqual(result.first?.name, "Paris")
 }
