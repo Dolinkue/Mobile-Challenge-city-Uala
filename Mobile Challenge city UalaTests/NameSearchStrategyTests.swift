@@ -9,12 +9,12 @@ import XCTest
 @testable import Mobile_Challenge_city_Uala 
 
 final class NameSearchStrategyTests: XCTestCase {
-    var searchStrategy: NameSearchStrategy!
+    var searchStrategy: CityNameSearchStrategy!
     var cities: [City]!
     
     override func setUp() {
         super.setUp()
-        searchStrategy = NameSearchStrategy()
+        searchStrategy = CityNameSearchStrategy()
         cities = [
             City(id: 1, country: "USA", name: "New York", coord: Coordinate(lon: -74.0060, lat: 40.7128)),
             City(id: 2, country: "USA", name: "Los Angeles", coord: Coordinate(lon: -118.2437, lat: 34.0522)),

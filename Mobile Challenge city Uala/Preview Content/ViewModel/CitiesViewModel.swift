@@ -25,7 +25,7 @@ class CitiesViewModel: ObservableObject {
     
     init(cityService: CityFetching = CityService.shared,
          favoritesManager: FavoritesManaging = FavoritesManager(),
-         searchStrategy: SearchStrategy = NameSearchStrategy()) {
+         searchStrategy: SearchStrategy = CityNameSearchStrategy()) {
         self.cityService = cityService
         self.favoritesManager = favoritesManager
         self.searchStrategy = searchStrategy

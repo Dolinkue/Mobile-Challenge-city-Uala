@@ -7,7 +7,7 @@
 
 import Foundation
 
-class NameSearchStrategy: SearchStrategy {
+class CityNameSearchStrategy: SearchStrategy {
     func search(cities: [City], query: String) -> [City] {
         guard !query.isEmpty else { return cities }
 
